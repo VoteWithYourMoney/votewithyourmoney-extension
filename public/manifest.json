@@ -1,0 +1,13 @@
+{
+    "name": "Vote with your Money",
+    "description": "An extension to show where a websites political money goes",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+       "activeTab",
+       "scripting"
+    ],
+    "background": {
+       "service_worker": "background.js"
+    }
+ }
