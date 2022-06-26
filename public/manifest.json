@@ -1,13 +1,32 @@
 {
     "name": "Vote with your Money",
     "description": "An extension to show where a websites political money goes",
-    "version": "1.0",
+    "version": "0.1.0",
     "manifest_version": 3,
-    "permissions": [
-       "activeTab",
-       "scripting"
-    ],
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Open the popup"
+    },
+    "options_ui": {
+      "page": "index.html"
+    },
+    "icons": {
+        "16": "logo192.png",
+        "48": "logo192.png",
+        "128": "logo192.png"
+    },
     "background": {
-       "service_worker": "background.js"
-    }
- }
+      "service_worker": 
+        "./static/js/background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["./static/js/content.js"]
+      }
+    ],
+    "devtools_page": "index.html",
+    "permissions": [
+      "tabs"
+    ]
+}
