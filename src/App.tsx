@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import logo from "./logo-horz.svg";
 import "./App.css";
-import { getCurrentTabUId } from "./chrome/utils";
-import { ChromeMessage, Sender } from "./types";
+import { useGetOrgData } from "./api/get";
 
 export default () => {
   const [url, setUrl] = useState<string | undefined>("");
-  const [responseFromContent, setResponseFromContent] = useState<string>("");
+  const [domain, setDomain] = useState<string>();
 
   useEffect(() => {
     const queryInfo = { active: true, lastFocusedWindow: true };
@@ -18,31 +17,26 @@ export default () => {
       });
   }, []);
 
-  const sendTestMessage = () => {
-    const message: ChromeMessage = {
-      from: Sender.React,
-      message: "Hello from React",
-    };
+  useEffect(() => {
+    if (url) {
+      setDomain(new URL(url).hostname);
+    }
+  }, [url]);
 
-    getCurrentTabUId((id) => {
-      id &&
-        chrome.tabs.sendMessage(id, message, (responseFromContentScript) => {
-          setResponseFromContent(responseFromContentScript);
-        });
-    });
-  };
+  const orgData = useGetOrgData(domain);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p></p>
         <p>URL:</p>
         <p>{url}</p>
-        <button onClick={sendTestMessage}>SEND MESSAGE</button>
-        <p>Response from content:</p>
-        <p>{responseFromContent}</p>
+        <p>Total Contributions</p>
+        <p>Total: {orgData?.response.organization["@attributes"].total}</p>
       </header>
+      <footer className="App-footer">
+        <p>Data provided by</p>
+        <img src={logo} className="App-logo" alt="logo" />
+      </footer>
     </div>
   );
 };

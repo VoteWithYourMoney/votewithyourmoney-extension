@@ -6,6 +6,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "superagent": "^8.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -42,6 +43,7 @@
     "@types/node": "^16.11.21",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@types/superagent": "^4.1.15",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
